@@ -1,65 +1,80 @@
 // Core
-import React, { Component } from 'react';
-import { List } from 'immutable';
-import FlipMove from 'react-flip-move';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { List } from "immutable";
+import FlipMove from "react-flip-move";
 
 // Instruments
-import Styles from './styles.m.css';
-import { mockedProfile } from '../../instruments/mockedData';
+import Styles from "./styles.m.css";
+import { mockedProfile } from "../../instruments/mockedData";
 
 // Components
-import { Composer, Catcher, Post } from '../../components';
+import { Composer, Catcher, Post } from "../../components";
 
+import { fetchPostsAsync } from "../../bus/posts/actions";
+
+const mapStateToProps = state => ({
+  posts: state.posts
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators({ fetchPostsAsync }, dispatch)
+  };
+};
+
+@connect(
+  mapStateToProps,
+  mapDispatchToProps
+)
 export default class Posts extends Component {
-    static defaultProps = {
-        // State
-        posts:   List(),
-        profile: mockedProfile,
+  static defaultProps = {
+    // State
 
-        // Actions
-        actions: {
-            // Users
-            fetchUsersAsync: () => {},
+    profile: mockedProfile,
 
-            // Posts
-            fetchPostsAsync: () => {},
-            removePostAsync: () => {},
-            createPostAsync: () => {},
-            likePostAsync:   () => {},
-            unlikePostAsync: () => {},
-        },
-    };
-
-    componentDidMount () {
-        const { actions } = this.props;
-
-        actions.fetchPostsAsync();
+    // Actions
+    actions: {
+      // Posts
+      fetchPostsAsync: () => {},
+      removePostAsync: () => {},
+      createPostAsync: () => {},
+      likePostAsync: () => {},
+      unlikePostAsync: () => {}
     }
+  };
 
-    render () {
-        const { actions, posts, profile } = this.props;
+  componentDidMount() {
+    const { actions } = this.props;
 
-        const postsJSX = posts.map((post) => {
-            return (
-                <Catcher key = { post.get('id') }>
-                    <Post
-                        actions = { actions }
-                        author = { post.get('author') }
-                        comment = { post.get('comment') }
-                        created = { post.get('created') }
-                        id = { post.get('id') }
-                        likes = { post.get('likes') }
-                        profile = { profile }
-                    />
-                </Catcher>
-            );
-        });
+    actions.fetchPostsAsync();
+  }
 
-        return (
-            <section className = { Styles.posts }>
-                <Composer actions = { actions } profile = { profile } />
-                <FlipMove>{postsJSX}</FlipMove>
-            </section>
-        );
-    }
+  render() {
+    const { actions, posts, profile } = this.props;
+
+    const postsJSX = posts.map(post => {
+      return (
+        <Catcher key={post.get("id")}>
+          <Post
+            actions={actions}
+            author={post.get("author")}
+            comment={post.get("comment")}
+            created={post.get("created")}
+            id={post.get("id")}
+            likes={post.get("likes")}
+            profile={profile}
+          />
+        </Catcher>
+      );
+    });
+
+    return (
+      <section className={Styles.posts}>
+        <Composer actions={actions} profile={profile} />
+        <FlipMove>{postsJSX}</FlipMove>
+      </section>
+    );
+  }
 }
