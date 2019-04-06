@@ -1,5 +1,5 @@
 // Config
 export const ROOT_URL = "https://lab.lectrum.io";
 export const MAIN_URL = `${ROOT_URL}/redux/api`;
-export const groupId = "medlgvgc4fn5";
-export const invite = "vHipJ3v?srxQ*a+AZ3&oc98%";
+export const groupId = "58hmak3ue9yd";
+export const invite = "6E2H4DtKCsKc";
