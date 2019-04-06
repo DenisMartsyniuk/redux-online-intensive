@@ -2,10 +2,23 @@ import { put, apply } from "redux-saga/effects";
 
 import { api } from "../../../../REST";
 import { postsActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
 export function* fetchPosts() {
-  const responce = yield apply(api, api.posts.fetch);
-  const result = yield apply(responce, responce.json);
+  try {
+    yield put(uiActions.startFetching());
 
-  yield put(postsActions.fillPosts(result.data));
+    const responce = yield apply(api, api.posts.fetch);
+    const { data: posts, message } = yield apply(responce, responce.json);
+
+    if (responce.status !== 200) {
+      throw new Error(message);
+    }
+
+    yield put(postsActions.fillPosts(posts));
+  } catch (error) {
+    yield put(uiActions.emitError(error, "createPost worker"));
+  } finally {
+    yield put(uiActions.stopFetching());
+  }
 }
