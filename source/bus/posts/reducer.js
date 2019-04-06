@@ -1,6 +1,6 @@
 import { fromJS, List } from "immutable";
 
-import * as types from "./types";
+import { types } from "./types";
 
 const initialState = List();
 
