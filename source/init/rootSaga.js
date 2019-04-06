@@ -1,7 +1,7 @@
 import { all, call } from "redux-saga/effects";
 
-import { watchCreatePost } from "../bus/posts/saga/watchers";
+import { watchPost } from "../bus/posts/saga/watchers";
 
-export function* rootSaga () {
-    yield all([call(watchCreatePost)]);
+export function* rootSaga() {
+  yield all([call(watchPost)]);
 }
