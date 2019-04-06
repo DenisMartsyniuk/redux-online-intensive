@@ -12,7 +12,7 @@ import { mockedProfile } from "../../instruments/mockedData";
 // Components
 import { Composer, Catcher, Post } from "../../components";
 
-import { fetchPostsAsync, createPostAsync } from "../../bus/posts/actions";
+import { postsActions } from "../../bus/posts/actions";
 
 const mapStateToProps = state => ({
   posts: state.posts
@@ -20,7 +20,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    actions: bindActionCreators({ fetchPostsAsync, createPostAsync }, dispatch)
+    actions: bindActionCreators(
+      {
+        fetchPostsAsync: postsActions.fetchPostsAsync,
+        createPostAsync: postsActions.createPostAsync
+      },
+      dispatch
+    )
   };
 };
 

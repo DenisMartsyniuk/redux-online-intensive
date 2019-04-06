@@ -1,32 +1,22 @@
 import { types } from "./types";
-import { api } from "../../REST";
 
-export const fetchPostsAsync = () => async dispatch => {
-  dispatch({
-    type: types.FETCH_POSTS_ASYNC
-  });
+export const postsActions = {
+    fetchPostsAsync: () => ({
+        type: types.FETCH_POSTS_ASYNC,
+    }),
 
-  const responce = await api.posts.fetch();
-  const result = await responce.json();
+    fillPosts: (posts) => ({
+        type:    types.FILL_POSTS,
+        payload: posts,
+    }),
 
-  dispatch(fillPosts(result.data));
-};
+    createPostAsync: (comment) => ({
+        type:    types.CREATE_POST_ASYNC,
+        payload: comment,
+    }),
 
-export const fillPosts = posts => {
-  return {
-    type: types.FILL_POSTS,
-    payload: posts
-  };
-};
-
-export const createPostAsync = () => ({
-  type: types.CREATE_POST_ASYNC,
-  payload: comment
-});
-
-export const fillNewPost = post => {
-  return {
-    type: types.FILL_NEW_POST,
-    payload: post
-  };
+    fillNewPost: (post) => ({
+        type:    types.FILL_NEW_POST,
+        payload: post,
+    })
 };
