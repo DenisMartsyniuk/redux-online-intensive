@@ -14,73 +14,73 @@ import { Composer, Catcher, Post } from "../../components";
 
 import { postsActions } from "../../bus/posts/actions";
 
-const mapStateToProps = state => ({
-  posts: state.posts
+const mapStateToProps = (state) => ({
+    posts: state.posts,
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(
-      {
-        fetchPostsAsync: postsActions.fetchPostsAsync,
-        createPostAsync: postsActions.createPostAsync
-      },
-      dispatch
-    )
-  };
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(
+            {
+                fetchPostsAsync: postsActions.fetchPostsAsync,
+                createPostAsync: postsActions.createPostAsync,
+            },
+            dispatch
+        ),
+    };
 };
 
 @connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )
 export default class Posts extends Component {
-  static defaultProps = {
-    // State
+    static defaultProps = {
+        // State
 
-    profile: mockedProfile,
+        profile: mockedProfile,
 
-    // Actions
-    actions: {
-      // Posts
-      fetchPostsAsync: () => {},
-      removePostAsync: () => {},
+        // Actions
+        actions: {
+            // Posts
+            fetchPostsAsync: () => {},
+            removePostAsync: () => {},
 
-      likePostAsync: () => {},
-      unlikePostAsync: () => {}
+            likePostAsync:   () => {},
+            unlikePostAsync: () => {},
+        },
+    };
+
+    componentDidMount () {
+        const { actions } = this.props;
+
+        actions.fetchPostsAsync();
     }
-  };
 
-  componentDidMount() {
-    const { actions } = this.props;
+    render () {
+        const { actions, posts, profile } = this.props;
 
-    actions.fetchPostsAsync();
-  }
+        const postsJSX = posts.map((post) => {
+            return (
+                <Catcher key = { post.get("id") }>
+                    <Post
+                        actions = { actions }
+                        author = { post.get("author") }
+                        comment = { post.get("comment") }
+                        created = { post.get("created") }
+                        id = { post.get("id") }
+                        likes = { post.get("likes") }
+                        profile = { profile }
+                    />
+                </Catcher>
+            );
+        });
 
-  render() {
-    const { actions, posts, profile } = this.props;
-
-    const postsJSX = posts.map(post => {
-      return (
-        <Catcher key={post.get("id")}>
-          <Post
-            actions={actions}
-            author={post.get("author")}
-            comment={post.get("comment")}
-            created={post.get("created")}
-            id={post.get("id")}
-            likes={post.get("likes")}
-            profile={profile}
-          />
-        </Catcher>
-      );
-    });
-
-    return (
-      <section className={Styles.posts}>
-        <Composer actions={actions} profile={profile} />
-        <FlipMove>{postsJSX}</FlipMove>
-      </section>
-    );
-  }
+        return (
+            <section className = { Styles.posts }>
+                <Composer actions = { actions } profile = { profile } />
+                <FlipMove>{postsJSX}</FlipMove>
+            </section>
+        );
+    }
 }
