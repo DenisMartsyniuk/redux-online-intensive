@@ -12,10 +12,10 @@ import "./theme/init";
 import App from "./navigation/App";
 
 render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById("app")
+    <Provider store = { store }>
+        <Router>
+            <App />
+        </Router>
+    </Provider>,
+    document.getElementById("app")
 );
