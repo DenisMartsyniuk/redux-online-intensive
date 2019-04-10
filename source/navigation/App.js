@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { hot } from "react-hot-loader";
 import { connect } from "react-redux";
-import { Switch, Route, Riderect, withRouter } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 
 // Pages
 import { Login, Signup, Feed, Profile, NewPassword } from "../pages";
@@ -25,14 +25,13 @@ export default class App extends Component {
                 <Route component = { Feed } path = { book.feed } />
                 <Route component = { Profile } path = { book.profile } />
                 <Route component = { NewPassword } path = { book.newPassword } />
-                <Riderect to = { book.feed } />
+                <Redirect to = { book.feed } />
             </Switch>
         ) : (
             <Switch>
                 <Route component = { Login } path = { book.login } />
                 <Route component = { Signup } path = { book.signUp } />
-
-                <Riderect to = { book.login } />
+                <Redirect to = { book.login } />
             </Switch>
         );
     }
