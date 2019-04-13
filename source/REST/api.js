@@ -1,6 +1,9 @@
 import { MAIN_URL, groupId } from "./config";
 
 export const api = {
+    get token () {
+        return localStorage.getItem("token");
+    },
     auth: {
         login (userInfo) {
             return fetch(`${MAIN_URL}/user/login`, {
@@ -20,13 +23,23 @@ export const api = {
                 body: JSON.stringify(userInfo),
             });
         },
+        authenticate () {
+            return fetch(`${MAIN_URL}/user/login`, {
+                method:  "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ token: this.token }),
+            });
+        },
     },
+
     posts: {
         fetch () {
             return fetch(`${MAIN_URL}/feed`, {
                 method:  "GET",
                 headers: {
-                    "X-No-Auth": groupId,
+                    Authorization: this.token,
                 },
             });
         },
@@ -34,7 +47,7 @@ export const api = {
             return fetch(`${MAIN_URL}/feed`, {
                 method:  "POST",
                 headers: {
-                    "X-No-Auth":    groupId,
+                    Authorization:  this.token,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ comment }),
