@@ -3,11 +3,11 @@ import { Map } from "immutable";
 import { types } from "./types";
 
 const initialState = Map({
-    isAuthenticated: true,
+    isAuthenticated: false,
 });
 
-export const authReducer = (state = initialState, { action, payload }) => {
-    switch (action) {
+export const authReducer = (state = initialState, { type }) => {
+    switch (type) {
         case types.AUTHENTICATE:
             return state.set("isAuthenticated", true);
 
