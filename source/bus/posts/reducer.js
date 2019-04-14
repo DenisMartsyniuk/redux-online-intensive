@@ -15,6 +15,10 @@ export const postReducer = (state = initialState, { type, payload }) => {
         case types.CLEAR_POSTS:
             return state.clear();
 
+        case types.REMOVE_POST: {
+            return state.filter((post) => post.get("id") !== payload.postId);
+        }
+
         default:
             return state;
     }
