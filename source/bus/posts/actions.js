@@ -10,6 +10,10 @@ export const postsActions = {
         payload: posts,
     }),
 
+    clearPost: () => ({
+        type: types.CLEAR_POSTS,
+    }),
+
     createPostAsync: (comment) => ({
         type:    types.CREATE_POST_ASYNC,
         payload: comment,

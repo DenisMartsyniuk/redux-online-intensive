@@ -15,6 +15,9 @@ export const authReducer = (state = initialState, { type }) => {
         case types.INITIALIZE:
             return state.set("isInitialized", true);
 
+        case types.LOGOUT:
+            return state.set("isAuthenticated", false);
+
         default:
             return state;
     }

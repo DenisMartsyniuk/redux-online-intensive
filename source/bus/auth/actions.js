@@ -9,6 +9,10 @@ export const authActions = {
         type: types.INITIALIZE,
     }),
 
+    logout: () => ({
+        type: types.LOGOUT,
+    }),
+
     signupAsync: (userData) => ({
         type:    types.SIGNUP_ASYNC,
         payload: userData,
@@ -25,5 +29,9 @@ export const authActions = {
 
     initializeAsync: () => ({
         type: types.INITIALIZE_ASYNC,
+    }),
+
+    logoutAsync: () => ({
+        type: types.LOGOUT_ASYNC,
     }),
 };

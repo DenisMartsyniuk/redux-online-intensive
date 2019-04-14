@@ -15,6 +15,9 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         case types.FILL_PROFILE:
             return state.merge(payload);
 
+        case types.CLEAR_PROFILE:
+            return state.clear();
+
         default:
             return state;
     }
