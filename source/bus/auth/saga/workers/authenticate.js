@@ -13,6 +13,14 @@ export function* authenticate () {
         const { data: profile, message } = yield apply(responce, responce.json);
 
         if (responce.status !== 200) {
+            if (responce.status === 401) {
+                yield apply(localStorage, localStorage.removeItem, ["token"]);
+                yield apply(localStorage, localStorage.removeItem, [
+                    "remember"
+                ]);
+
+                return null;
+            }
             throw new Error(message);
         }
 
