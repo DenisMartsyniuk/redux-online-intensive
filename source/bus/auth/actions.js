@@ -10,8 +10,8 @@ export const authActions = {
         payload: userData,
     }),
 
-    loginAsync: (userData) => ({
+    loginAsync: (credentials) => ({
         type:    types.LOGIN_ASYNC,
-        payload: userData,
+        payload: credentials,
     }),
 };

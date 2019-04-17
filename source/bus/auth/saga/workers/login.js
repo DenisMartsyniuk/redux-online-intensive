@@ -5,11 +5,11 @@ import { authActions } from "../../actions";
 import { uiActions } from "../../../ui/actions";
 import { profileActions } from "../../../profile/actions";
 
-export function* login ({ payload: userInfo }) {
+export function* login ({ payload: credentials }) {
     try {
         yield put(uiActions.startFetching());
 
-        const responce = yield apply(api, api.auth.login, [userInfo]);
+        const responce = yield apply(api, api.auth.login, [credentials]);
         const { data: profile, message } = yield apply(responce, responce.json);
 
         if (responce.status !== 200) {
@@ -19,7 +19,7 @@ export function* login ({ payload: userInfo }) {
         yield put(profileActions.fillProfile(profile));
         yield put(authActions.authenticate());
     } catch (error) {
-        yield put(uiActions.emitError(error, "signup worker"));
+        yield put(uiActions.emitError(error, "login worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }
