@@ -25,6 +25,11 @@ export const postsActions = {
         payload: likePostData,
     }),
 
+    unlikePost: (unlikePostData) => ({
+        type:    types.UNLIKE_POST,
+        payload: unlikePostData,
+    }),
+
     fetchPostsAsync: () => ({
         type: types.FETCH_POSTS_ASYNC,
     }),
@@ -41,6 +46,11 @@ export const postsActions = {
 
     likePostAsync: (postId) => ({
         type:    types.LIKE_POST_ASYNC,
+        payload: postId,
+    }),
+
+    unlikePostAsync: (postId) => ({
+        type:    types.UNLIKE_POST_ASYNC,
         payload: postId,
     }),
 };
