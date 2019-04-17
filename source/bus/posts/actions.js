@@ -1,13 +1,32 @@
 import { types } from "./types";
 
 export const postsActions = {
-    fetchPostsAsync: () => ({
-        type: types.FETCH_POSTS_ASYNC,
-    }),
-
     fillPosts: (posts) => ({
         type:    types.FILL_POSTS,
         payload: posts,
+    }),
+
+    fillNewPost: (post) => ({
+        type:    types.FILL_NEW_POST,
+        payload: post,
+    }),
+
+    clearPost: () => ({
+        type: types.REMOVE_POST,
+    }),
+
+    removePost: (postId) => ({
+        type:    types.REMOVE_POST,
+        payload: postId,
+    }),
+
+    likePost: (likePostData) => ({
+        type:    types.LIKE_POST,
+        payload: likePostData,
+    }),
+
+    fetchPostsAsync: () => ({
+        type: types.FETCH_POSTS_ASYNC,
     }),
 
     createPostAsync: (comment) => ({
@@ -15,8 +34,13 @@ export const postsActions = {
         payload: comment,
     }),
 
-    fillNewPost: (post) => ({
-        type:    types.FILL_NEW_POST,
-        payload: post,
+    removePostAsync: (postId) => ({
+        type:    types.REMOVE_POST_ASYNC,
+        payload: postId,
+    }),
+
+    likePostAsync: (postId) => ({
+        type:    types.LIKE_POST_ASYNC,
+        payload: postId,
     }),
 };

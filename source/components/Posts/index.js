@@ -22,8 +22,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         actions: bindActionCreators(
             {
-                fetchPostsAsync: postsActions.fetchPostsAsync,
-                createPostAsync: postsActions.createPostAsync,
+                // fetchPostsAsync: postsActions.fetchPostsAsync,
+                // createPostAsync: postsActions.createPostAsync,
+                // removePostAsync: postsActions.removePostAsync,
+                ...postsActions,
             },
             dispatch
         ),
@@ -41,8 +43,6 @@ export default class Posts extends Component {
         // Actions
         actions: {
             // Posts
-            fetchPostsAsync: () => {},
-            removePostAsync: () => {},
 
             likePostAsync:   () => {},
             unlikePostAsync: () => {},
