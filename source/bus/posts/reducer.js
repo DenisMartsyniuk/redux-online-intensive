@@ -31,6 +31,21 @@ export const postReducer = (state = initialState, { type, payload }) => {
             );
         }
 
+        case types.UNLIKE_POST: {
+            console.log(payload.unliker);
+
+            return state.updateIn(
+                [
+                    state.findIndex(
+                        (post) => post.get("id") === payload.postId
+                    ),
+                    "likes"
+                ],
+                (likes) =>
+                    likes.filter((liker) => liker.id !== payload.unliker.id)
+            );
+        }
+
         default:
             return state;
     }

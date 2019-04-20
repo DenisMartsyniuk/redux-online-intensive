@@ -20,8 +20,6 @@ export function* likePost ({ payload: postId }) {
             state.profile.removeAll(["avatar", "token"])
         );
 
-        console.log(liker);
-
         yield put(postsActions.likePost({ liker, postId }));
     } catch (error) {
         yield put(uiActions.emitError(error, "likePost worker"));

@@ -16,15 +16,13 @@ export function* unlikePost ({ payload: postId }) {
             throw new Error(message);
         }
 
-        const liker = yield select((state) =>
+        const unliker = yield select((state) =>
             state.profile.removeAll(["avatar", "token"])
         );
 
-        console.log(liker);
-
-        yield put(postsActions.likePost({ liker, postId }));
+        yield put(postsActions.unlikePost({ unliker, postId }));
     } catch (error) {
-        yield put(uiActions.emitError(error, "likePost worker"));
+        yield put(uiActions.emitError(error, "unlikePost worker"));
     } finally {
         yield put(uiActions.stopFetching());
     }
