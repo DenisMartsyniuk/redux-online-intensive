@@ -16,7 +16,7 @@ export const postReducer = (state = initialState, { type, payload }) => {
             return state.clear();
 
         case types.REMOVE_POST: {
-            return state.filter((post) => post.get("id") !== payload.postId);
+            return state.shift(fromJS(payload));
         }
 
         case types.LIKE_POST: {

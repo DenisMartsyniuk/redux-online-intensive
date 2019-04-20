@@ -18,6 +18,12 @@ export const socketActions = {
             dispatch(postsActions.fillNewPost(post));
         });
 
+        socket.on("remove", (event) => {
+            const { data } = JSON.parse(event);
+
+            dispatch(postsActions.removePost({ postId: data }));
+        });
+
         socket.on("like", (event) => {
             const { data, meta } = JSON.parse(event);
 
