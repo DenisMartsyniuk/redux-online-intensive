@@ -12,6 +12,7 @@ import Styles from "./styles.m.css";
 import { Composer, Catcher, Post } from "../../components";
 
 import { postsActions } from "../../bus/posts/actions";
+import { usersActions } from "../../bus/users/actions";
 
 const mapStateToProps = (state) => ({
     posts:   state.posts,
@@ -23,6 +24,7 @@ const mapDispatchToProps = (dispatch) => {
         actions: bindActionCreators(
             {
                 ...postsActions,
+                ...usersActions,
             },
             dispatch
         ),
@@ -50,6 +52,7 @@ export default class Posts extends Component {
         const { actions } = this.props;
 
         actions.fetchPostsAsync();
+        actions.fetchUsersAsync();
     }
 
     render () {
