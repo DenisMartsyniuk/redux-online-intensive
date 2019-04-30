@@ -19,6 +19,10 @@ export const profileActions = {
         type:    types.UPDATE_NAME_ASYNC,
         payload: newName,
     }),
+    updatePasswordAsync: (passwordData) => ({
+        type:    types.UPDATE_PASSWORD_ASYNC,
+        payload: passwordData,
+    }),
     updateAvatarAsync: (newAvatar) => ({
         type:    types.UPDATE_AVATAR_ASYNC,
         payload: newAvatar,
