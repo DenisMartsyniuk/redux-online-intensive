@@ -54,6 +54,18 @@ const fetchResponseFail400 = {
     json:   jest.fn(() => Promise.resolve(responseDataFail)),
 };
 
+const newName = {
+    firstName: "Walter",
+    lastName:  "White",
+};
+
+const newAvatar = ["avatar"];
+
+const newPassword = {
+    oldPassword: 12345,
+    newPassword: 1234567,
+};
+
 const url = "https://www.url.com";
 
 global.__ = {
@@ -69,6 +81,9 @@ global.__ = {
     credentials,
     url,
     users,
+    newName,
+    newAvatar,
+    newPassword,
 };
 global.fetch = fetch;
 global.localStorage = new LocalStorage();
