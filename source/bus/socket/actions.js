@@ -12,20 +12,20 @@ export const socketActions = {
         });
     },
     listenPosts: () => (dispatch, getState) => {
-        socket.on("create", (event) => {
-            const { data: post } = JSON.parse(event);
+        socket.on("create", (source) => {
+            const { data: post } = JSON.parse(source);
 
             dispatch(postsActions.fillNewPost(post));
         });
 
-        socket.on("remove", (event) => {
-            const { data } = JSON.parse(event);
+        socket.on("remove", (source) => {
+            const { data } = JSON.parse(source);
 
             dispatch(postsActions.removePost({ postId: data }));
         });
 
-        socket.on("like", (event) => {
-            const { data, meta } = JSON.parse(event);
+        socket.on("like", (source) => {
+            const { data, meta } = JSON.parse(source);
 
             if (meta.action === "like") {
                 const liker = getState()

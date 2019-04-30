@@ -1,4 +1,5 @@
 import { put, apply } from "redux-saga/effects";
+import { actions } from "react-redux-form";
 
 import { api } from "../../../../REST";
 import { authActions } from "../../actions";
@@ -27,6 +28,7 @@ export function* logout () {
         yield put(postsActions.clearPost());
         yield put(usersActions.clearUsers());
         yield put(uiActions.stopFetching());
+        yield put(actions.reset("forms.user"));
         yield put(authActions.logout());
     }
 }
