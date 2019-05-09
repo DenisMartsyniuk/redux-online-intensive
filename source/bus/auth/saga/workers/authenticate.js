@@ -1,10 +1,10 @@
-import { put, apply } from "redux-saga/effects";
-import { actions } from "react-redux-form";
+import { put, apply } from 'redux-saga/effects';
+import { actions } from 'react-redux-form';
 
-import { api } from "../../../../REST";
-import { authActions } from "../../actions";
-import { uiActions } from "../../../ui/actions";
-import { profileActions } from "../../../profile/actions";
+import { api } from '../../../../REST';
+import { authActions } from '../../actions';
+import { uiActions } from '../../../ui/actions';
+import { profileActions } from '../../../profile/actions';
 
 export function* authenticate () {
     try {
@@ -15,9 +15,9 @@ export function* authenticate () {
 
         if (responce.status !== 200) {
             if (responce.status === 401) {
-                yield apply(localStorage, localStorage.removeItem, ["token"]);
+                yield apply(localStorage, localStorage.removeItem, ['token']);
                 yield apply(localStorage, localStorage.removeItem, [
-                    "remember"
+                    'remember'
                 ]);
 
                 return null;
@@ -26,20 +26,21 @@ export function* authenticate () {
         }
 
         yield apply(localStorage, localStorage.setItem, [
-            "token",
+            'token',
             profile.token
         ]);
 
         yield put(profileActions.fillProfile(profile));
         yield put(
-            actions.change("forms.user.profile.firstName", profile.firstName)
+            actions.change('forms.user.profile.firstName', profile.firstName)
         );
         yield put(
-            actions.change("forms.user.profile.lastName", profile.lastName)
+            actions.change('forms.user.profile.lastName', profile.lastName)
         );
+        yield put(profileActions.fillProfile(profile));
         yield put(authActions.authenticate());
     } catch (error) {
-        yield put(uiActions.emitError(error, "authenticate worker"));
+        yield put(uiActions.emitError(error, 'authenticate worker'));
     } finally {
         yield put(uiActions.stopFetching());
         yield put(authActions.initialize());
